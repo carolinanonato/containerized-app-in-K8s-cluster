@@ -8,24 +8,14 @@ data "aws_ami" "amazon_linux_2" {
   }
 }
 
-data "aws_iam_role" "lab_role" {
-  name = "LabRole"
-}
-
-resource "aws_iam_instance_profile" "ec2_instance_profile" {
-  name = "ec2_instance_profile"
-  role = data.aws_iam_role.lab_role.arn
-}
 
 resource "aws_instance" "k8s" {
   ami           = data.aws_ami.amazon_linux_2.id
   instance_type = "t3.medium"
-  iam_instance_profile = aws_iam_instance_profile.ec2_instance_profile.name
 
   root_block_device {
     volume_size = 16
   }
-
 
   user_data = <<-EOF
     #!/bin/bash
@@ -62,4 +52,4 @@ resource "aws_instance" "k8s" {
 resource "aws_key_pair" "k8s" {
   key_name   = "A2_key"
   public_key = file("${path.module}/A2_key.pub")
-}
+  }
