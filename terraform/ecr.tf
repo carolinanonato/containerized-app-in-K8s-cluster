@@ -1,19 +1,5 @@
-resource "aws_ecr_repository" "webapp" {
-  name                 = "webapp"
-  image_tag_mutability = "MUTABLE"
-
-  image_scanning_configuration {
-    scan_on_push = true
-  }
-}
-
-resource "aws_ecr_repository" "db" {
-  name                 = "db"
-  image_tag_mutability = "MUTABLE"
-
-  image_scanning_configuration {
-    scan_on_push = true
-  }
+data "aws_iam_instance_profile" "lab_instance_profile" {
+  name = "LabInstanceProfile"
 }
 
 resource "aws_ecr_repository_policy" "ecr_policy" {
@@ -24,7 +10,7 @@ resource "aws_ecr_repository_policy" "ecr_policy" {
       {
         Effect = "Allow"
         Principal = {
-          AWS = data.aws_iam_role.lab_role.arn
+          AWS = data.aws_iam_instance_profile.lab_instance_profile.arn
         }
         Action = [
           "ecr:GetDownloadUrlForLayer",
@@ -38,4 +24,21 @@ resource "aws_ecr_repository_policy" "ecr_policy" {
       }
     ]
   })
+}
+
+
+resource "aws_ecr_repository" "database" {
+  name         = "database"
+  force_delete = true
+  tags = {
+    Name = "A2_database"
+  }
+}
+
+resource "aws_ecr_repository" "application" {
+  name         = "application"
+  force_delete = true
+  tags = {
+    Name = "A2_application"
+  }
 }
