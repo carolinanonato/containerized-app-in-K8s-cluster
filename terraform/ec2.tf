@@ -33,10 +33,7 @@ resource "aws_instance" "k8s" {
     kind create cluster --config kind.yaml​
   EOF
 
-  vpc_security_group_ids = [
-    module.ec2_sg.security_group_id,
-    module.dev_ssh_sg.security_group_id
-  ]
+  vpc_security_group_ids = [aws_security_group.my_sg.id]
   iam_instance_profile = "LabInstanceProfile"
 
   tags = {
