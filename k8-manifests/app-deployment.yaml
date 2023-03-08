@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: applcation-deployment
+  labels:
+    app: employees
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+     app: employees
+  template:
+    metadata:
+      labels:
+        app: employees
+    spec:
+      containers:
+      - name: application-container
+        image: 534731196878.dkr.ecr.us-east-1.amazonaws.com/application
+        ports:
+        - containerPort: 8080
