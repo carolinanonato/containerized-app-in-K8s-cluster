@@ -19,3 +19,16 @@ spec:
         image: 534731196878.dkr.ecr.us-east-1.amazonaws.com/application
         ports:
         - containerPort: 8080
+      env:
+    - name: DBUSER
+      value: "root"
+    - name: DBPWD
+      value: "pw"
+    - name: DBPORT
+      value: "3306"
+    - name: APP_COLOR
+      value: "blue"
+    - name: DATABASE
+      value: "employees"
+  imagePullSecrets:
+  - name: regcred  
