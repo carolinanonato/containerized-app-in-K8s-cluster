@@ -1,7 +1,6 @@
 
 resource "aws_ecr_repository" "database" {
   name         = "database"
-  force_delete = true
   tags = {
     Name = "A2_database"
   }
@@ -9,7 +8,6 @@ resource "aws_ecr_repository" "database" {
 
 resource "aws_ecr_repository" "application" {
   name         = "application"
-  force_delete = true
   tags = {
     Name = "A2_application"
   }
