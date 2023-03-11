@@ -11,6 +11,8 @@ spec:
     ports:
     - containerPort: 8080
     env:
+    - name: DBHOST
+      value: "someip"
     - name: DBUSER
       value: "root"
     - name: DBPWD
