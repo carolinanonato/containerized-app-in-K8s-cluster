@@ -8,7 +8,7 @@ variable "container_ports" {
 }
 
 resource "aws_security_group" "my_sg" {
-  name        = "allow_ssh"
+  name        = "allow_ssh_a2"
   description = "Allow SSH inbound traffic"
   vpc_id      = data.aws_vpc.default.id
 
